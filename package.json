@@ -1,5 +1,5 @@
 {
-  "name": "@precast/icons",
+  "name": "@buun_group/precast-icons",
   "version": "1.0.0",
   "description": "A modern, minimal SVG icon library for React, Vue, Svelte and more",
   "type": "module",
@@ -58,7 +58,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "generate-icons": "node scripts/build-icons.js",

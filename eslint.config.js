@@ -50,6 +50,7 @@ export default [
       'scripts/**/*.js',
       'src/icons/generated/**/*',
       'test-*.js',
+      'test-*.mjs',
     ],
   },
 ];

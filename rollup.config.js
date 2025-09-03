@@ -94,7 +94,7 @@ export default [
 
   // Icons bundle
   {
-    input: 'src/icons/definitions.ts',
+    input: 'src/icons/generated/index.ts',
     output: [
       {
         file: 'dist/icons/index.js',
@@ -135,7 +135,7 @@ export default [
     external,
   },
   {
-    input: 'src/icons/definitions.ts',
+    input: 'src/icons/generated/index.ts',
     output: [{ file: 'dist/icons/index.d.ts', format: 'es' }],
     plugins: [dts()],
   },
