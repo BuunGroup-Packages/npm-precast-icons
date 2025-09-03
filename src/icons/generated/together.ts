@@ -1,0 +1,31 @@
+import { IconDefinition } from '../../types';
+
+/**
+ * Together icon definition
+ */
+export const together: IconDefinition = {
+  "name": "together",
+  "viewBox": "0 0 24 24",
+  "content": [
+    {
+      "tag": "title",
+      "attrs": {},
+      "children": []
+    },
+    {
+      "tag": "path",
+      "attrs": {
+        "d": "M17.385 11.23a4.615 4.615 0 100-9.23 4.615 4.615 0 000 9.23zm0 10.77a4.615 4.615 0 100-9.23 4.615 4.615 0 000 9.23zm-10.77 0a4.615 4.615 0 100-9.23 4.615 4.615 0 000 9.23z",
+        "opacity": ".2"
+      }
+    },
+    {
+      "tag": "circle",
+      "attrs": {
+        "cx": "6.615",
+        "cy": "6.615",
+        "r": "4.615"
+      }
+    }
+  ]
+};

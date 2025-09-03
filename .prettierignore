@@ -1,0 +1,11 @@
+dist/
+node_modules/
+*.min.js
+*.min.css
+coverage/
+.git/
+.husky/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+src/icons/generated/

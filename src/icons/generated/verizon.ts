@@ -1,0 +1,22 @@
+import { IconDefinition } from '../../types';
+
+/**
+ * Verizon icon definition
+ */
+export const verizon: IconDefinition = {
+  "name": "verizon",
+  "viewBox": "0 0 24 24",
+  "content": [
+    {
+      "tag": "title",
+      "attrs": {},
+      "children": []
+    },
+    {
+      "tag": "path",
+      "attrs": {
+        "d": "M18.302 0H22v.003L10.674 24H7.662L2 12h3.727l3.449 7.337z"
+      }
+    }
+  ]
+};
