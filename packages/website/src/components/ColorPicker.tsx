@@ -3,6 +3,7 @@ import { useState } from 'react';
 interface ColorPickerProps {
   value: string;
   onChange: (color: string) => void;
+  disabled?: boolean;
 }
 
 const presetColors = [
@@ -28,23 +29,25 @@ const presetColors = [
   '#84cc16',
 ];
 
-export function ColorPicker({ value, onChange }: ColorPickerProps) {
+export function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [customColor, setCustomColor] = useState(value);
 
   const handlePresetClick = (color: string) => {
+    if (disabled) return;
     onChange(color);
     setIsOpen(false);
   };
 
   const handleCustomChange = (color: string) => {
+    if (disabled) return;
     setCustomColor(color);
     onChange(color);
   };
 
   return (
-    <div className="color-picker">
-      <div className="color-picker-preview" onClick={() => setIsOpen(!isOpen)}>
+    <div className={`color-picker ${disabled ? 'disabled' : ''}`}>
+      <div className="color-picker-preview" onClick={() => !disabled && setIsOpen(!isOpen)}>
         <div className="color-swatch" style={{ backgroundColor: value }} />
         <span className="color-value">{value}</span>
         <svg
@@ -83,6 +86,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
                 value={customColor}
                 onChange={e => handleCustomChange(e.target.value)}
                 className="color-input-native"
+                disabled={disabled}
               />
               <input
                 type="text"
@@ -90,6 +94,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
                 onChange={e => handleCustomChange(e.target.value)}
                 className="color-input-text"
                 placeholder="#000000"
+                disabled={disabled}
               />
             </div>
           </div>

@@ -77,25 +77,28 @@ export function IconPage() {
     const loadSvgPaths = async () => {
       if (!icon) return;
       try {
-        const iconsModule = await import(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const iconsModule: any = await import(
           'https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs'
         );
         // Use the variant name or fall back to the icon name
         const variantName = icon.variants?.[selectedVariant]?.name || icon.name;
-        if (iconsModule[variantName]) {
-          const iconDef = iconsModule[variantName];
+        const iconDef = iconsModule.default?.[variantName] || iconsModule[variantName];
+        if (iconDef) {
           if (iconDef?.content) {
             const paths = iconDef.content
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               .filter((node: any) => node.tag === 'path' && node.attrs?.d)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               .map((node: any) => {
-                let pathAttrs = `d="${node.attrs.d}"`;
-                if (node.attrs.fill && node.attrs.fill !== 'currentColor') {
+                let pathAttrs = `d="${node.attrs?.d || ''}"`;
+                if (node.attrs?.fill && node.attrs.fill !== 'currentColor') {
                   pathAttrs += ` fill="${node.attrs.fill}"`;
                 }
-                if (node.attrs.stroke) {
+                if (node.attrs?.stroke) {
                   pathAttrs += ` stroke="${node.attrs.stroke}"`;
                 }
-                if (node.attrs['stroke-width']) {
+                if (node.attrs?.['stroke-width']) {
                   pathAttrs += ` stroke-width="${node.attrs['stroke-width']}"`;
                 }
                 return `  <path ${pathAttrs} />`;
@@ -149,7 +152,8 @@ export function IconPage() {
 
   const loadPackageIcons = async () => {
     try {
-      const iconsModule = await import(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const iconsModule: any = await import(
         'https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs'
       );
       const packageManagers = [
@@ -162,9 +166,9 @@ export function IconPage() {
       const icons: Record<string, React.ComponentType<{ size?: number }>> = {};
 
       packageManagers.forEach(pm => {
-        if (iconsModule[pm.iconName]) {
+        const iconDef = iconsModule.default?.[pm.iconName] || iconsModule[pm.iconName];
+        if (iconDef) {
           icons[pm.name] = ({ size = 16 }) => {
-            const iconDef = iconsModule[pm.iconName];
             if (iconDef?.content) {
               const paths = iconDef.content
                 .filter(
@@ -198,15 +202,17 @@ export function IconPage() {
 
   const loadFrameworkIcons = async () => {
     try {
-      const iconsModule = await import(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const iconsModule: any = await import(
         'https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs'
       );
       const icons: Record<string, React.ComponentType<{ size?: number }>> = {};
 
       frameworks.forEach(framework => {
-        if (iconsModule[framework.iconName]) {
+        const iconDef =
+          iconsModule.default?.[framework.iconName] || iconsModule[framework.iconName];
+        if (iconDef) {
           icons[framework.iconName] = ({ size = 16 }) => {
-            const iconDef = iconsModule[framework.iconName];
             if (iconDef?.content) {
               const paths = iconDef.content
                 .filter(

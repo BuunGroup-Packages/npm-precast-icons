@@ -68,7 +68,8 @@ export function SettingsPopup() {
 
   const loadPackageIcons = async () => {
     try {
-      const iconsModule = await import(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const iconsModule: any = await import(
         'https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs'
       );
       const packageManagers = [
@@ -81,18 +82,18 @@ export function SettingsPopup() {
       const icons: Record<string, React.ComponentType<{ size?: number }>> = {};
 
       packageManagers.forEach(pm => {
-        if (iconsModule[pm.iconName]) {
+        const iconDef = iconsModule.default?.[pm.iconName] || iconsModule[pm.iconName];
+        if (iconDef) {
           icons[pm.name] = ({ size = 16 }) => {
-            const iconDef = iconsModule[pm.iconName];
             if (iconDef?.content) {
               const paths = iconDef.content
                 .filter(
-                  (node: { tag?: string; attrs?: { d?: string } }) =>
-                    node.tag === 'path' && node.attrs?.d
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (node: any) => node.tag === 'path' && node.attrs?.d
                 )
                 .map(
-                  (node: { attrs: { d: string } }) =>
-                    `<path d="${node.attrs.d}" fill="currentColor" stroke="none"/>`
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (node: any) => `<path d="${node.attrs.d}" fill="currentColor" stroke="none"/>`
                 )
                 .join('');
 
@@ -117,24 +118,26 @@ export function SettingsPopup() {
 
   const loadFrameworkIcons = async () => {
     try {
-      const iconsModule = await import(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const iconsModule: any = await import(
         'https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs'
       );
       const icons: Record<string, React.ComponentType<{ size?: number }>> = {};
 
       frameworks.forEach(framework => {
-        if (iconsModule[framework.iconName]) {
+        const iconDef =
+          iconsModule.default?.[framework.iconName] || iconsModule[framework.iconName];
+        if (iconDef) {
           icons[framework.iconName] = ({ size = 16 }) => {
-            const iconDef = iconsModule[framework.iconName];
             if (iconDef?.content) {
               const paths = iconDef.content
                 .filter(
-                  (node: { tag?: string; attrs?: { d?: string } }) =>
-                    node.tag === 'path' && node.attrs?.d
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (node: any) => node.tag === 'path' && node.attrs?.d
                 )
                 .map(
-                  (node: { attrs: { d: string } }) =>
-                    `<path d="${node.attrs.d}" fill="currentColor" stroke="none"/>`
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (node: any) => `<path d="${node.attrs.d}" fill="currentColor" stroke="none"/>`
                 )
                 .join('');
 

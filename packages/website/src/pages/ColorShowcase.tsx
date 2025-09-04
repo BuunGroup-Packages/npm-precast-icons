@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { SEO } from '../components/SEO';
