@@ -10,13 +10,14 @@ export const verizon: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Verizon"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M18.302 0H22v.003L10.674 24H7.662L2 12h3.727l3.449 7.337z"
-      }
+      },
+      "children": []
     }
   ]
 };

@@ -10,14 +10,15 @@ export const zapierColor: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Zapier"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M18.5 16h-13v3h13v-3z",
         "fill": "#FF4F00"
-      }
+      },
+      "children": []
     }
   ]
 };

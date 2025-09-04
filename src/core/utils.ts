@@ -42,9 +42,15 @@ export function renderIconDefinition(
       .map(([key, value]) => `${key}="${value}"`)
       .join(' ');
 
-    if (children && children.length > 0) {
-      const childrenString = children.map(renderNode).join('');
-      return `<${tag} ${attrString}>${childrenString}</${tag}>`;
+    if (children) {
+      if (typeof children === 'string') {
+        // Text content
+        return `<${tag} ${attrString}>${children}</${tag}>`;
+      } else if (Array.isArray(children) && children.length > 0) {
+        // Child nodes
+        const childrenString = children.map(renderNode).join('');
+        return `<${tag} ${attrString}>${childrenString}</${tag}>`;
+      }
     }
 
     return `<${tag} ${attrString} />`;

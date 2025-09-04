@@ -10,13 +10,14 @@ export const fortnite: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Fortnite"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "m15.767 14.171.097-5.05H12.4V5.197h3.99L16.872 0H7.128v24l5.271-.985V14.17z"
-      }
+      },
+      "children": []
     }
   ]
 };

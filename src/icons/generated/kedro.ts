@@ -10,13 +10,14 @@ export const kedro: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Kedro"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "m12 0 12 12-12 12L0 12 12 0z"
-      }
+      },
+      "children": []
     }
   ]
 };

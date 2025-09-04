@@ -10,14 +10,15 @@ export const adobeColor: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Adobe"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M14.86 3H23v19zM9.14 3H1v19zM11.992 9.998L17.182 22h-3.394l-1.549-3.813h-3.79z",
         "fill": "#EB1000"
-      }
+      },
+      "children": []
     }
   ]
 };

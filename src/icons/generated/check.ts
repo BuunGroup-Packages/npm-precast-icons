@@ -11,7 +11,8 @@ export const check: IconDefinition = {
       "tag": "polyline",
       "attrs": {
         "points": "20 6 9 17 4 12"
-      }
+      },
+      "children": []
     }
   ]
 };

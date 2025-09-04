@@ -36,6 +36,24 @@ export default [
     external,
   },
 
+  // Brand colors bundle
+  {
+    input: 'src/core/brand-colors.ts',
+    output: [
+      {
+        file: 'dist/brand-colors.js',
+        format: 'cjs',
+        exports: 'named',
+      },
+      {
+        file: 'dist/brand-colors.mjs',
+        format: 'es',
+      },
+    ],
+    plugins,
+    external,
+  },
+
   // React bundle
   {
     input: 'src/react/index.ts',

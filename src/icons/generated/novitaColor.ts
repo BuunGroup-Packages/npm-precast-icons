@@ -10,7 +10,7 @@ export const novitaColor: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Novita AI"
     },
     {
       "tag": "path",
@@ -19,7 +19,8 @@ export const novitaColor: IconDefinition = {
         "d": "M9.167 4.17v5.665L0 19.003h9.167v-5.666l5.666 5.666H24L9.167 4.17z",
         "fill": "#23D57C",
         "fillRule": "evenodd"
-      }
+      },
+      "children": []
     }
   ]
 };

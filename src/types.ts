@@ -1,7 +1,7 @@
 export interface IconNode {
   tag: string;
   attrs: Record<string, string | number>;
-  children?: IconNode[];
+  children?: IconNode[] | string;
 }
 
 export interface IconDefinition {

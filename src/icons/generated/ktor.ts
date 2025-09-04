@@ -10,13 +10,14 @@ export const ktor: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Ktor"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M8 0 0 8l8 8V8h8zm8 8v8H8l8 8 8-8z"
-      }
+      },
+      "children": []
     }
   ]
 };

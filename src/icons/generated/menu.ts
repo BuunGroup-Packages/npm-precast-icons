@@ -14,7 +14,8 @@ export const menu: IconDefinition = {
         "y1": "12",
         "x2": "21",
         "y2": "12"
-      }
+      },
+      "children": []
     },
     {
       "tag": "line",
@@ -23,7 +24,8 @@ export const menu: IconDefinition = {
         "y1": "6",
         "x2": "21",
         "y2": "6"
-      }
+      },
+      "children": []
     },
     {
       "tag": "line",
@@ -32,7 +34,8 @@ export const menu: IconDefinition = {
         "y1": "18",
         "x2": "21",
         "y2": "18"
-      }
+      },
+      "children": []
     }
   ]
 };

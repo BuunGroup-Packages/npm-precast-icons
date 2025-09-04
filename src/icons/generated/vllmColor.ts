@@ -10,21 +10,23 @@ export const vllmColor: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "vLLM"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M0 4.973h9.324V23L0 4.973z",
         "fill": "#FDB515"
-      }
+      },
+      "children": []
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M13.986 4.351L22.378 0l-6.216 23H9.324l4.662-18.649z",
         "fill": "#30A2FF"
-      }
+      },
+      "children": []
     }
   ]
 };

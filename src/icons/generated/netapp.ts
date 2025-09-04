@@ -10,13 +10,14 @@ export const netapp: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "NetApp"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M0 2v20h9.33V10h5.34v12H24V2Z"
-      }
+      },
+      "children": []
     }
   ]
 };

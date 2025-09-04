@@ -10,13 +10,14 @@ export const vercel: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Vercel"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "m12 1.608 12 20.784H0Z"
-      }
+      },
+      "children": []
     }
   ]
 };

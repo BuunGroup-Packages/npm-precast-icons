@@ -10,13 +10,14 @@ export const cratedb: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "CrateDB"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M18 9V3h-6v6H0v6h6v6h6v-6h12V9h-6z"
-      }
+      },
+      "children": []
     }
   ]
 };

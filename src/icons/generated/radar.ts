@@ -10,13 +10,14 @@ export const radar: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Radar"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M12 0L2.197 23.975 12 19.952 21.803 24z"
-      }
+      },
+      "children": []
     }
   ]
 };

@@ -1,0 +1,123 @@
+{
+  "name": "@buun_group/precast-icons",
+  "version": "1.0.0",
+  "description": "A modern, minimal SVG icon library for React, Vue, Svelte and more",
+  "type": "module",
+  "author": "Sacha Roussakis-Notter",
+  "license": "MIT",
+  "homepage": "https://github.com/BuunGroup-Packages/npm-precast-icons#readme",
+  "bugs": {
+    "url": "https://github.com/BuunGroup-Packages/npm-precast-icons/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuunGroup-Packages/npm-precast-icons.git",
+    "directory": "."
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "icons",
+    "svg",
+    "react",
+    "vue",
+    "svelte",
+    "precast",
+    "ui",
+    "components"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.mjs",
+      "require": "./dist/react/index.js"
+    },
+    "./vue": {
+      "types": "./dist/vue/index.d.ts",
+      "import": "./dist/vue/index.mjs",
+      "require": "./dist/vue/index.js"
+    },
+    "./svelte": {
+      "types": "./dist/svelte/index.d.ts",
+      "import": "./dist/svelte/index.mjs",
+      "require": "./dist/svelte/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "import": "./dist/icons/index.mjs",
+      "require": "./dist/icons/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "generate-icons": "node scripts/build-icons.js",
+    "generate-manifest": "node scripts/generate-manifest.js",
+    "prebuild": "npm run generate-icons",
+    "build": "rollup -c && npm run generate-manifest",
+    "dev": "npm run generate-icons && rollup -c -w",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:svg": "svglint lobe-icons/**/*.svg",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "svelte": ">=3.0.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.52",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.9.6",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-svg": "^2.0.0",
+    "svglint": "^4.1.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.42.0",
+    "vitest": "^1.2.2",
+    "vue": "^3.4.15"
+  }
+}

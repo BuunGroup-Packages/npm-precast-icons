@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test @buun_group/precast-icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .icon-demo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .icon-demo svg {
+            flex-shrink: 0;
+        }
+        .icon-name {
+            font-size: 12px;
+            color: #666;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-demo {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: white;
+        }
+        .feature-demo h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .icon-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .icon-label {
+            font-size: 11px;
+            color: #666;
+            min-width: 80px;
+        }
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .brand-name {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: red;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+            background: #e6ffe6;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Testing @buun_group/precast-icons Package</h1>
+        
+        <!-- Test 1: React Icons -->
+        <div class="test-section">
+            <h2>Test 1: React Icons</h2>
+            <div id="react-test" class="loading">Loading React icons...</div>
+        </div>
+
+        <!-- Test 2: Direct Icon Definitions -->
+        <div class="test-section">
+            <h2>Test 2: Icon Definitions</h2>
+            <div id="icons-test" class="loading">Loading icon definitions...</div>
+        </div>
+
+        <!-- Test 3: Render SVG from Definition -->
+        <div class="test-section">
+            <h2>Test 3: Manual SVG Rendering</h2>
+            <div id="svg-test" class="loading">Rendering SVG manually...</div>
+        </div>
+
+        <!-- Test 4: Advanced SVG Rendering -->
+        <div class="test-section">
+            <h2>Test 4: Advanced SVG Features (Colors, Sizes, Mono Mode)</h2>
+            <div id="advanced-svg-test" class="loading">Testing advanced SVG features...</div>
+        </div>
+
+        <!-- Test 5: Brand Icons -->
+        <div class="test-section">
+            <h2>Test 5: Brand Icons</h2>
+            <div id="brand-icons-test" class="loading">Loading brand icons...</div>
+        </div>
+
+        <!-- Test 6: Debug Problematic Icons -->
+        <div class="test-section">
+            <h2>Test 6: Debug Problematic Icons</h2>
+            <div id="debug-icons-test" class="loading">Investigating problematic icons...</div>
+        </div>
+    </div>
+
+    <!-- Import from CDN -->
+    <script type="module">
+        // Helper function to render SVG from icon definition
+        function renderSVG(iconDef, options = {}) {
+            const {
+                size = 24,
+                color = 'currentColor',
+                strokeWidth = 2,
+                fill = 'none',
+                stroke = 'currentColor',
+                mono = false
+            } = options;
+            
+            // Helper to render SVG node
+            const renderNode = (node) => {
+                const attrs = node.attrs ? Object.entries(node.attrs).map(([k, v]) => `${k}="${v}"`).join(' ') : '';
+                if (node.children && node.children.length > 0) {
+                    const children = node.children.map(renderNode).join('');
+                    return `<${node.tag} ${attrs}>${children}</${node.tag}>`;
+                }
+                return `<${node.tag} ${attrs} />`;
+            };
+            
+            const content = iconDef.content.map(renderNode).join('');
+            
+            // Apply mono mode styling
+            const svgProps = mono 
+                ? {
+                    fill: color,
+                    stroke: 'none',
+                    strokeWidth: 0
+                }
+                : {
+                    fill: fill,
+                    stroke: stroke === 'currentColor' ? color : stroke,
+                    strokeWidth: strokeWidth,
+                    strokeLinecap: 'round',
+                    strokeLinejoin: 'round'
+                };
+            
+            const svgAttrs = Object.entries({
+                width: size,
+                height: size,
+                viewBox: iconDef.viewBox || '0 0 24 24',
+                ...svgProps
+            }).map(([k, v]) => `${k}="${v}"`).join(' ');
+            
+            return `<svg ${svgAttrs} style="color: ${color};">${content}</svg>`;
+        }
+
+        // Test using ESM from unpkg CDN
+        try {
+            // Test 1: Try importing React icons
+            try {
+                const reactModule = await import('https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/react/index.mjs');
+                document.getElementById('react-test').innerHTML = `
+                    <div class="success">✅ React module loaded successfully!</div>
+                    <div>Available exports: ${Object.keys(reactModule).slice(0, 5).join(', ')}... (${Object.keys(reactModule).length} total)</div>
+                `;
+            } catch (e) {
+                document.getElementById('react-test').innerHTML = `
+                    <div class="error">❌ React module failed: ${e.message}</div>
+                `;
+            }
+
+            // Test 2: Try importing icon definitions
+            try {
+                const iconsModule = await import('https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs');
+                const iconNames = Object.keys(iconsModule).slice(0, 10);
+                
+                document.getElementById('icons-test').innerHTML = `
+                    <div class="success">✅ Icons module loaded successfully!</div>
+                    <div>Total icons: ${Object.keys(iconsModule).length}</div>
+                    <div>Sample icons: ${iconNames.join(', ')}...</div>
+                `;
+
+                // Test 3: Render some SVGs manually
+                const svgContainer = document.getElementById('svg-test');
+                const sampleIcons = iconNames.slice(0, 6);
+                
+                let svgHtml = '<div class="success">✅ Manual SVG rendering successful!</div><div class="icon-grid">';
+                
+                for (const iconName of sampleIcons) {
+                    const iconDef = iconsModule[iconName];
+                    if (iconDef && iconDef.content) {
+                        const svg = renderSVG(iconDef, { size: 24, color: 'currentColor', strokeWidth: 2 });
+                        
+                        svgHtml += `
+                            <div class="icon-demo">
+                                ${svg}
+                                <span class="icon-name">${iconDef.name}</span>
+                            </div>
+                        `;
+                    }
+                }
+                svgHtml += '</div>';
+                
+                svgContainer.innerHTML = svgHtml;
+
+                // Test 4: Advanced SVG Features
+                const advancedContainer = document.getElementById('advanced-svg-test');
+                const testIcon = iconsModule[iconNames[0]] || iconsModule.abb;
+                
+                if (testIcon) {
+                    let advancedHtml = '<div class="success">✅ Advanced SVG features working!</div>';
+                    advancedHtml += '<div class="feature-grid">';
+                    
+                    // Size variations
+                    advancedHtml += `
+                        <div class="feature-demo">
+                            <h4>Different Sizes</h4>
+                            <div class="icon-row">
+                                <span class="icon-label">16px:</span>
+                                ${renderSVG(testIcon, { size: 16 })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">24px:</span>
+                                ${renderSVG(testIcon, { size: 24 })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">32px:</span>
+                                ${renderSVG(testIcon, { size: 32 })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">48px:</span>
+                                ${renderSVG(testIcon, { size: 48 })}
+                            </div>
+                        </div>
+                    `;
+
+                    // Color variations
+                    advancedHtml += `
+                        <div class="feature-demo">
+                            <h4>Different Colors</h4>
+                            <div class="icon-row">
+                                <span class="icon-label">Blue:</span>
+                                ${renderSVG(testIcon, { size: 24, color: '#3b82f6' })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">Red:</span>
+                                ${renderSVG(testIcon, { size: 24, color: '#ef4444' })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">Green:</span>
+                                ${renderSVG(testIcon, { size: 24, color: '#22c55e' })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">Purple:</span>
+                                ${renderSVG(testIcon, { size: 24, color: '#a855f7' })}
+                            </div>
+                        </div>
+                    `;
+
+                    // Mono mode comparison
+                    advancedHtml += `
+                        <div class="feature-demo">
+                            <h4>Mono Mode Comparison</h4>
+                            <div class="icon-row">
+                                <span class="icon-label">Stroke:</span>
+                                ${renderSVG(testIcon, { size: 32, color: '#6366f1', mono: false })}
+                                <small>stroke mode (default)</small>
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">Mono:</span>
+                                ${renderSVG(testIcon, { size: 32, color: '#6366f1', mono: true })}
+                                <small>mono mode (filled)</small>
+                            </div>
+                        </div>
+                    `;
+
+                    // Stroke width variations
+                    advancedHtml += `
+                        <div class="feature-demo">
+                            <h4>Stroke Width</h4>
+                            <div class="icon-row">
+                                <span class="icon-label">1px:</span>
+                                ${renderSVG(testIcon, { size: 24, strokeWidth: 1 })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">2px:</span>
+                                ${renderSVG(testIcon, { size: 24, strokeWidth: 2 })}
+                            </div>
+                            <div class="icon-row">
+                                <span class="icon-label">3px:</span>
+                                ${renderSVG(testIcon, { size: 24, strokeWidth: 3 })}
+                            </div>
+                        </div>
+                    `;
+                    
+                    advancedHtml += '</div>';
+                    advancedContainer.innerHTML = advancedHtml;
+                }
+
+                // Test 5: Brand Icons - Clean filled style
+                const brandContainer = document.getElementById('brand-icons-test');
+                const brandNames = [
+                    'google', 'github', 'microsoft', 'apple', 'facebook', 'twitter', 'x',
+                    'linkedin', 'youtube', 'instagram', 'amazon', 'react', 'vue', 'angular',
+                    'typescript', 'javascript', 'python', 'nodejs', 'docker', 'kubernetes',
+                    'aws', 'azure', 'googlecloud', 'stripe', 'paypal', 'figma', 'adobe',
+                    'slack', 'spotify', 'netflix', 'twitch', 'discord', 'telegram', 'whatsapp',
+                    'reddit', 'pinterest', 'tiktok', 'snapchat', 'zoom', 'dropbox', 'notion',
+                    'trello', 'asana', 'jira', 'confluence', 'bitbucket', 'gitlab', 'jenkins',
+                    'vercel', 'netlify', 'heroku', 'firebase', 'mongodb', 'postgresql', 'mysql',
+                    'redis', 'elasticsearch', 'grafana', 'prometheus', 'terraform', 'ansible',
+                    'nvidia', 'intel', 'amd', 'qualcomm', 'uber', 'airbnb', 'shopify', 'square',
+                    'mastercard', 'visa', 'americanexpress', 'tesla', 'toyota', 'bmw', 'mercedes',
+                    'coca-cola', 'mcdonalds', 'starbucks', 'nike', 'adidas', 'samsung', 'lg',
+                    'sony', 'nintendo', 'playstation', 'xbox', 'steam', 'epicgames', 'unity',
+                    'blender', 'photoshop', 'illustrator', 'premiere', 'aftereffects', 'xd'
+                ];
+                
+                // Helper function for clean brand rendering with robust error handling
+                function renderBrandSVG(iconDef, size = 32) {
+                    try {
+                        if (!iconDef || !iconDef.content || !Array.isArray(iconDef.content)) {
+                            return `<div style="width: ${size}px; height: ${size}px; background: #f0f0f0; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999;">?</div>`;
+                        }
+
+                        const renderNode = (node) => {
+                            try {
+                                if (!node || typeof node !== 'object') return '';
+                                if (!node.tag) return '';
+                                
+                                // Skip non-visual elements
+                                if (node.tag === 'title' || node.tag === 'desc' || node.tag === 'metadata') {
+                                    return '';
+                                }
+                                
+                                // Handle text content for text/title elements
+                                if (node.tag === 'text' || node.tag === 'tspan') {
+                                    const attrs = node.attrs ? Object.entries(node.attrs)
+                                        .filter(([k, v]) => v !== undefined && v !== null)
+                                        .map(([k, v]) => `${k}="${String(v).replace(/"/g, '&quot;')}"`)
+                                        .join(' ') : '';
+                                    const textContent = node.children && typeof node.children === 'string' ? node.children : '';
+                                    return `<${node.tag} ${attrs}>${textContent}</${node.tag}>`;
+                                }
+                                
+                                const attrs = node.attrs ? Object.entries(node.attrs)
+                                    .filter(([k, v]) => v !== undefined && v !== null)
+                                    .map(([k, v]) => `${k}="${String(v).replace(/"/g, '&quot;')}"`)
+                                    .join(' ') : '';
+                                
+                                if (node.children && Array.isArray(node.children) && node.children.length > 0) {
+                                    const children = node.children.map(renderNode).filter(Boolean).join('');
+                                    return `<${node.tag} ${attrs}>${children}</${node.tag}>`;
+                                }
+                                
+                                // Self-closing tags
+                                return `<${node.tag} ${attrs} />`;
+                            } catch (e) {
+                                console.warn(`Error rendering node:`, node, e);
+                                return '';
+                            }
+                        };
+                        
+                        const content = iconDef.content.map(renderNode).filter(Boolean).join('');
+                        
+                        if (!content.trim()) {
+                            return `<div style="width: ${size}px; height: ${size}px; background: #f9f9f9; border: 1px dashed #ddd; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #666;">Empty</div>`;
+                        }
+                        
+                        // Clean brand styling - use currentColor for clean monochrome look
+                        const svgAttrs = Object.entries({
+                            width: size,
+                            height: size,
+                            viewBox: iconDef.viewBox || '0 0 24 24',
+                            fill: 'currentColor',
+                            stroke: 'none',
+                            xmlns: 'http://www.w3.org/2000/svg'
+                        }).map(([k, v]) => `${k}="${v}"`).join(' ');
+                        
+                        return `<svg ${svgAttrs}>${content}</svg>`;
+                    } catch (e) {
+                        console.warn(`Error rendering icon ${iconDef?.name}:`, e, iconDef);
+                        return `<div style="width: ${size}px; height: ${size}px; background: #ffe6e6; border: 1px solid #ffcccc; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #cc0000;">Error</div>`;
+                    }
+                }
+                
+                let brandHtml = '<div class="brand-grid">';
+                let foundBrands = 0;
+                
+                // First try exact matches
+                for (const brandName of brandNames) {
+                    if (iconsModule[brandName]) {
+                        const brandIcon = iconsModule[brandName];
+                        brandHtml += `
+                            <div class="brand-item">
+                                ${renderBrandSVG(brandIcon, 32)}
+                                <span class="brand-name">${brandIcon.name}</span>
+                            </div>
+                        `;
+                        foundBrands++;
+                    }
+                }
+                
+                // Then find more popular brands by searching icon names
+                const popularBrandKeywords = [
+                    'alibaba', 'tencent', 'baidu', 'oracle', 'salesforce', 'adobe', 'shopify',
+                    'wordpress', 'woocommerce', 'mailchimp', 'hubspot', 'intercom', 'zendesk',
+                    'atlassian', 'jetbrains', 'vscode', 'sublimetext', 'atom', 'brackets',
+                    'webstorm', 'intellij', 'pycharm', 'androidstudio', 'xcode', 'unity3d',
+                    'unrealengine', 'godot', 'construct', 'gamemaker', 'roblox', 'minecraft',
+                    'fortnite', 'pubg', 'overwatch', 'leagueoflegends', 'dota', 'csgo',
+                    'valorant', 'apex', 'warzone', 'destiny', 'halo', 'pokemon', 'mario'
+                ];
+                
+                // Add more brands found by keyword search
+                const additionalBrands = [];
+                for (const keyword of popularBrandKeywords) {
+                    const matches = Object.keys(iconsModule).filter(name => 
+                        name.toLowerCase().includes(keyword.toLowerCase()) || 
+                        (iconsModule[name] && iconsModule[name].name && iconsModule[name].name.toLowerCase().includes(keyword.toLowerCase()))
+                    );
+                    additionalBrands.push(...matches.slice(0, 2)); // Take up to 2 matches per keyword
+                }
+                
+                // Remove duplicates and add to display
+                const uniqueAdditionalBrands = [...new Set(additionalBrands)];
+                for (const iconName of uniqueAdditionalBrands.slice(0, 30)) {
+                    if (iconsModule[iconName] && !brandNames.includes(iconName)) {
+                        const icon = iconsModule[iconName];
+                        brandHtml += `
+                            <div class="brand-item">
+                                ${renderBrandSVG(icon, 32)}
+                                <span class="brand-name">${icon.name}</span>
+                            </div>
+                        `;
+                        foundBrands++;
+                    }
+                }
+                
+                // Add some technology and service icons
+                const techIcons = Object.keys(iconsModule).filter(name => {
+                    const lowerName = name.toLowerCase();
+                    return lowerName.includes('ai') || lowerName.includes('cloud') || 
+                           lowerName.includes('data') || lowerName.includes('api') ||
+                           lowerName.includes('auth') || lowerName.includes('crypto') ||
+                           lowerName.includes('payment') || lowerName.includes('social') ||
+                           lowerName.includes('media') || lowerName.includes('streaming');
+                }).slice(0, 20);
+                
+                for (const iconName of techIcons) {
+                    const icon = iconsModule[iconName];
+                    brandHtml += `
+                        <div class="brand-item">
+                            ${renderBrandSVG(icon, 32)}
+                            <span class="brand-name">${icon.name}</span>
+                        </div>
+                    `;
+                    foundBrands++;
+                }
+                
+                brandHtml += '</div>';
+                
+                brandContainer.innerHTML = `
+                    <div class="success">✅ Found ${foundBrands} brand and technology icons!</div>
+                    <p style="color: #666; font-size: 14px; margin: 10px 0;">
+                        Icons rendered with clean filled styling - perfect for brand recognition.
+                    </p>
+                    ${brandHtml}
+                `;
+
+                // Test 6: Debug Problematic Icons
+                const debugContainer = document.getElementById('debug-icons-test');
+                const problematicIcons = ['ai360Color', 'ai302Text', 'aihubmixText', 'ai360', 'ai302', 'aihubmix'];
+                
+                let debugHtml = '<div class="success">🔍 Investigating problematic icons...</div>';
+                debugHtml += '<div style="font-family: monospace; font-size: 12px; background: #f8f8f8; padding: 15px; border-radius: 4px; margin: 10px 0;">';
+                
+                for (const iconName of problematicIcons) {
+                    if (iconsModule[iconName]) {
+                        const icon = iconsModule[iconName];
+                        debugHtml += `<div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd; background: white;">`;
+                        debugHtml += `<strong>${iconName}:</strong><br/>`;
+                        debugHtml += `- ViewBox: ${icon.viewBox || 'undefined'}<br/>`;
+                        debugHtml += `- Content length: ${icon.content ? icon.content.length : 0}<br/>`;
+                        
+                        if (icon.content && icon.content.length > 0) {
+                            debugHtml += `- All elements: <br/>`;
+                            icon.content.forEach((el, i) => {
+                                debugHtml += `  ${i}: ${el.tag} (${Object.keys(el.attrs || {}).length} attrs, ${el.children ? el.children.length : 0} children)<br/>`;
+                            });
+                            debugHtml += `- Full structure: ${JSON.stringify(icon.content, null, 2).substring(0, 500)}...<br/>`;
+                            debugHtml += `- Rendered: `;
+                            debugHtml += renderBrandSVG(icon, 24);
+                        } else {
+                            debugHtml += `- No content found<br/>`;
+                        }
+                        debugHtml += `</div>`;
+                    } else {
+                        debugHtml += `<div style="margin: 10px 0; color: red;"><strong>${iconName}:</strong> Not found in module</div>`;
+                    }
+                }
+                
+                debugHtml += '</div>';
+                
+                // Also test a few working icons for comparison
+                const workingIcons = ['google', 'github', 'react'];
+                debugHtml += '<div class="success">✅ Working icons for comparison:</div>';
+                debugHtml += '<div style="font-family: monospace; font-size: 12px; background: #f0f8f0; padding: 15px; border-radius: 4px; margin: 10px 0;">';
+                
+                for (const iconName of workingIcons) {
+                    if (iconsModule[iconName]) {
+                        const icon = iconsModule[iconName];
+                        debugHtml += `<div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd; background: white;">`;
+                        debugHtml += `<strong>${iconName}:</strong><br/>`;
+                        debugHtml += `- ViewBox: ${icon.viewBox}<br/>`;
+                        debugHtml += `- Content length: ${icon.content.length}<br/>`;
+                        debugHtml += `- First element: ${JSON.stringify(icon.content[0], null, 2).substring(0, 150)}...<br/>`;
+                        debugHtml += `- Rendered: `;
+                        debugHtml += renderBrandSVG(icon, 24);
+                        debugHtml += `</div>`;
+                    }
+                }
+                
+                debugHtml += '</div>';
+                debugContainer.innerHTML = debugHtml;
+                
+            } catch (e) {
+                document.getElementById('icons-test').innerHTML = `
+                    <div class="error">❌ Icons module failed: ${e.message}</div>
+                `;
+                document.getElementById('svg-test').innerHTML = `
+                    <div class="error">❌ SVG rendering failed: ${e.message}</div>
+                `;
+            }
+
+        } catch (e) {
+            document.body.innerHTML = `
+                <div class="container">
+                    <h1>Package Test Failed</h1>
+                    <div class="error">❌ Failed to load package: ${e.message}</div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

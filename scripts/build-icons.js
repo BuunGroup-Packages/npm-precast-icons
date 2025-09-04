@@ -10,7 +10,7 @@ const ICONS_DIR = path.join(__dirname, '../src/icons/generated');
 const INDEX_FILE = path.join(__dirname, '../src/icons/generated/index.ts');
 
 /**
- * Parse SVG content into icon definition structure
+ * Parse SVG content into icon definition structure with proper gradient support
  * @param {string} svgContent - Raw SVG file content
  * @returns {Object|null} Parsed icon definition
  */
@@ -23,33 +23,59 @@ function parseSVG(svgContent) {
 
   const inner = innerMatch[1].trim();
 
-  const elements = [];
-  const elementRegex = /<(\w+)([^>]*)(?:\/>|>([\s\S]*?)<\/\1>)/g;
-  let match;
+  /**
+   * Recursively parse XML elements
+   * @param {string} content - XML content to parse
+   * @returns {Array} Array of parsed elements
+   */
+  function parseElements(content) {
+    const elements = [];
+    const elementRegex = /<(\w+)([^>]*?)(?:\s*\/>|>([\s\S]*?)<\/\1>)/g;
+    let match;
 
-  while ((match = elementRegex.exec(inner)) !== null) {
-    const tag = match[1];
-    const attrsString = match[2];
-    const children = match[3];
+    while ((match = elementRegex.exec(content)) !== null) {
+      const tag = match[1];
+      const attrsString = match[2];
+      const innerContent = match[3];
 
-    const attrs = {};
-    const attrRegex = /(\w+(?:-\w+)?)="([^"]*)"/g;
-    let attrMatch;
-    while ((attrMatch = attrRegex.exec(attrsString)) !== null) {
-      let key = attrMatch[1];
-      if (key.includes('-')) {
-        key = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+      // Parse attributes
+      const attrs = {};
+      const attrRegex = /(\w+(?:-\w+)*)(?:\s*=\s*["']([^"']*?)["'])?/g;
+      let attrMatch;
+      while ((attrMatch = attrRegex.exec(attrsString)) !== null) {
+        let key = attrMatch[1];
+        let value = attrMatch[2] || '';
+
+        // Convert kebab-case to camelCase for React compatibility
+        if (key.includes('-')) {
+          key = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+        }
+
+        attrs[key] = value;
       }
-      attrs[key] = attrMatch[2];
+
+      const element = { tag, attrs };
+
+      // Parse children if they exist
+      if (innerContent && innerContent.trim()) {
+        // Check if it contains child elements or just text
+        if (/<\w+/.test(innerContent)) {
+          element.children = parseElements(innerContent);
+        } else if (innerContent.trim()) {
+          // Text content
+          element.children = innerContent.trim();
+        }
+      } else {
+        element.children = [];
+      }
+
+      elements.push(element);
     }
 
-    const element = { tag, attrs };
-    if (children && children.trim()) {
-      element.children = [];
-    }
-
-    elements.push(element);
+    return elements;
   }
+
+  const elements = parseElements(inner);
 
   return {
     viewBox,

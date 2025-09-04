@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test SVG Extraction</title>
+</head>
+<body>
+    <h1>Testing SVG Path Extraction</h1>
+    <div id="result"></div>
+    
+    <script type="module">
+        // Test loading an icon and extracting its paths
+        async function testSvgExtraction() {
+            try {
+                const module = await import('https://unpkg.com/@buun_group/precast-icons@1.0.0/dist/icons/index.mjs');
+                
+                // Test with a few icons
+                const testIcons = ['github', 'google', 'amazon', 'microsoft', 'apple'];
+                const resultDiv = document.getElementById('result');
+                
+                for (const iconName of testIcons) {
+                    if (module[iconName]) {
+                        const iconDef = module[iconName];
+                        resultDiv.innerHTML += `<h2>${iconName}</h2>`;
+                        
+                        if (iconDef?.content) {
+                            const paths = iconDef.content
+                                .filter(node => node.tag === 'path' && node.attrs?.d)
+                                .map(node => {
+                                    return `&lt;path d="${node.attrs.d}" /&gt;`;
+                                })
+                                .join('<br>');
+                            
+                            resultDiv.innerHTML += `<pre>${paths || 'No paths found'}</pre>`;
+                            
+                            // Also render the SVG
+                            const svgPaths = iconDef.content
+                                .filter(node => node.tag === 'path' && node.attrs?.d)
+                                .map(node => `<path d="${node.attrs.d}" />`)
+                                .join('');
+                            
+                            resultDiv.innerHTML += `
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" style="border: 1px solid #ccc;">
+                                    ${svgPaths}
+                                </svg>
+                            `;
+                        } else {
+                            resultDiv.innerHTML += '<p>No content found</p>';
+                        }
+                    } else {
+                        resultDiv.innerHTML += `<p>${iconName} not found in module</p>`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+        
+        testSvgExtraction();
+    </script>
+</body>
+</html>

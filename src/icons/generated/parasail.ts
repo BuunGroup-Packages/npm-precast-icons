@@ -10,20 +10,22 @@ export const parasail: IconDefinition = {
     {
       "tag": "title",
       "attrs": {},
-      "children": []
+      "children": "Parasail"
     },
     {
       "tag": "path",
       "attrs": {
         "d": "M0 15.852c4.5 0 8.147 3.648 8.147 8.148H0v-8.148z"
-      }
+      },
+      "children": []
     },
     {
       "tag": "path",
       "attrs": {
         "clipRule": "evenodd",
         "d": "M0 7.688v.018C9 7.706 16.294 15 16.294 24h.019l-.018-.036c3.33-.2 8.864-2.447 7.49-9.58A19.95 19.95 0 009.61.213C2.482-1.155.235 4.374.036 7.704L0 7.688z"
-      }
+      },
+      "children": []
     }
   ]
 };
