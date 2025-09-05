@@ -167,13 +167,6 @@ export function HomePage({ search, onScrollModeChange }: HomePageProps) {
     return filtered;
   }, [allIcons, search, selectedCategory, sortOption]);
 
-  // Initialize displayed icons based on scroll mode
-  useEffect(() => {
-    if (scrollMode === 'infinite') {
-      setDisplayedIcons(filteredIcons.slice(0, iconsPerPage));
-    }
-  }, [filteredIcons, scrollMode]);
-
   // Infinite scroll logic
   const loadMoreIcons = useCallback(() => {
     if (isLoadingMore || displayedIcons.length >= filteredIcons.length) return;
@@ -219,13 +212,15 @@ export function HomePage({ search, onScrollModeChange }: HomePageProps) {
       ? filteredIcons.slice((currentPage - 1) * iconsPerPage, currentPage * iconsPerPage)
       : displayedIcons;
 
-  // Reset page/displayed icons when search or category changes
+  // Reset page/displayed icons when search, category or sort changes
   useEffect(() => {
     setCurrentPage(1);
     if (scrollMode === 'infinite') {
+      // Reset to first page of results
       setDisplayedIcons(filteredIcons.slice(0, iconsPerPage));
     }
-  }, [search, selectedCategory, scrollMode, filteredIcons, iconsPerPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, selectedCategory, sortOption, scrollMode]);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);

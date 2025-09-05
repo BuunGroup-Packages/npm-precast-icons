@@ -115,8 +115,8 @@ export function Header({ search = '', onSearchChange }: HeaderProps) {
                     >
                       <FiDroplet size={16} />
                       <div>
-                        <span className="resource-item-name">Color Preview Tool</span>
-                        <span className="resource-item-desc">Markdown color table generator</span>
+                        <span className="resource-item-name">Color Palette Generator</span>
+                        <span className="resource-item-desc">Create beautiful color palettes</span>
                       </div>
                     </Link>
                   </div>
