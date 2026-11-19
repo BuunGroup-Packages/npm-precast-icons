@@ -43,7 +43,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="footer-credit"
           >
-            <img src="https://buungroup.com/logo/logo.svg" alt="Buun Group" className="buun-logo" />
+            <img src="https://assets.buungroup.com/brand/logo/buungroup-mark.svg" alt="Buun Group" width={20} height={20} className="buun-logo" />
             <span>Built & Designed by Buun Group</span>
           </a>
 
